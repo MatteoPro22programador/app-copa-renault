@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Register - Copa Renault</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/register.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+    rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="contenedor">
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <h1>
+                <span>COPA</span><br>
+                RENAULT
+            </h1>
+
+        </div>
+
+        <!-- REGISTER -->
+
+        <div class="register-box">
+
+            <h2>Crear Cuenta</h2>
+
+            <form method="POST">
+
+                <input
+                    type="text"
+                    name="nombre"
+                    placeholder="Nombre completo"
+                    required
+                >
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Correo electrónico"
+                    required
+                >
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Contraseña"
+                    required
+                >
+
+                <button type="submit">
+                    Registrarse
+                </button>
+
+            </form>
+
+            <p>
+                ¿Ya tienes cuenta?
+                <a href="/login">Iniciar sesión</a>
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+/* =====================
+   REGISTER PAGE
+   ===================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #050505;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,152,0,0.04) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* =====================
+   CONTENEDOR
+   ===================== */
+.contenedor {
+    display: flex;
+    gap: 0;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid #1e1e1e;
+    width: 720px;
+    max-width: calc(100vw - 32px);
+    position: relative;
+    z-index: 1;
+    margin: 32px auto;
+}
+
+/* =====================
+   PANEL IZQUIERDO - LOGO
+   ===================== */
+.logo {
+    background-color: #0a0a0a;
+    border-right: 1px solid #1e1e1e;
+    width: 280px;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.logo::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,152,0,0.08) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.logo img {
+    width: 80px;
+    height: auto;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.logo h1 {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 2px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.logo h1 span {
+    color: #ff9800;
+}
+
+.logo p {
+    color: #444;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+}
+
+/* =====================
+   PANEL DERECHO - FORM
+   ===================== */
+.register-box {
+    flex: 1;
+    background-color: #0f0f0f;
+    padding: 48px 44px;
+}
+
+.register-box h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 32px;
+}
+
+/* =====================
+   LABEL
+   ===================== */
+.register-box label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #555;
+    margin-bottom: 8px;
+    margin-top: 18px;
+}
+
+/* =====================
+   INPUTS
+   ===================== */
+.register-box input {
+    width: 100%;
+    padding: 13px 16px;
+    border-radius: 10px;
+    border: 1px solid #1e1e1e;
+    background-color: #0a0a0a;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.register-box input::placeholder {
+    color: #333;
+}
+
+.register-box input:focus {
+    border-color: rgba(255, 152, 0, 0.5);
+    background-color: #111;
+}
+
+/* =====================
+   BOTON
+   ===================== */
+.register-box button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background-color: #ff9800;
+    color: #050505;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin-top: 28px;
+    letter-spacing: 0.4px;
+}
+
+.register-box button:hover {
+    background-color: #e68900;
+    transform: translateY(-1px);
+}
+
+/* =====================
+   LINK LOGIN
+   ===================== */
+.register-box p {
+    text-align: center;
+    color: #555;
+    font-size: 13px;
+    margin-top: 22px;
+}
+
+.register-box p a {
+    color: #ff9800;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.register-box p a:hover {
+    color: #ffb347;
+}
+
+/* =====================
+   RESPONSIVE
+   ===================== */
+@media (max-width: 600px) {
+    .contenedor {
+        flex-direction: column;
+    }
+
+    .logo {
+        width: 100%;
+        min-width: auto;
+        padding: 40px 30px;
+        border-right: none;
+        border-bottom: 1px solid #1e1e1e;
+    }
+
+    .register-box {
+        padding: 36px 28px;
+    }
+}

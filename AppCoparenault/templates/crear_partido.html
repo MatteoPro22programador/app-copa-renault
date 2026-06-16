@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Partido</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fixture.css') }}">
+</head>
+<body>
+
+    <div class="form-container">
+
+        <h1>Crear Partido</h1>
+
+        <form method="POST">
+
+            <!-- DEPORTE -->
+            <label>Deporte</label>
+
+            <select name="deporte" required>
+
+                <option value="">Seleccionar deporte</option>
+
+                <option value="Fútbol">Fútbol</option>
+
+                <option value="Basketball">Basketball</option>
+
+                <option value="Voleiball">Voleiball</option>
+
+            </select>
+
+            <!-- EQUIPO 1 -->
+            <label>Equipo 1</label>
+
+            <input type="text" name="equipo1" required>
+
+            <!-- EQUIPO 2 -->
+            <label>Equipo 2</label>
+
+            <input type="text" name="equipo2" required>
+
+            <!-- PUNTOS -->
+            <label>Puntos Equipo 1</label>
+
+            <input type="number" name="puntos1" value="0">
+
+            <label>Puntos Equipo 2</label>
+
+            <input type="number" name="puntos2" value="0">
+
+            <!-- FECHA Y HORA -->
+            <label>Fecha y Hora</label>
+
+            <input type="datetime-local" name="fecha" required>
+
+            <!-- BOTON -->
+            <button type="submit">
+                Crear Partido
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

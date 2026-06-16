@@ -1,0 +1,132 @@
+/* =========================
+   ADMIN FORMS
+   ========================= */
+
+.admin-page {
+    min-height: 100vh;
+    background: #050505;
+    padding: 50px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.admin-form-box {
+    width: 100%;
+    max-width: 650px;
+    background: #0f0f0f;
+    border: 1px solid #1a1a1a;
+    border-radius: 24px;
+    padding: 36px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.4);
+}
+
+.admin-form-box h1 {
+    font-size: 34px;
+    color: white;
+    margin-bottom: 28px;
+    font-weight: 700;
+}
+
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.admin-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.admin-group label {
+    color: #888;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.admin-group input,
+.admin-group textarea,
+.admin-group select {
+    background: #111;
+    border: 1px solid #1f1f1f;
+    color: white;
+    padding: 14px 16px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+.admin-group textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.admin-group input:focus,
+.admin-group textarea:focus,
+.admin-group select:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 0 3px rgba(255,152,0,0.12);
+}
+
+.admin-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #bbb;
+    font-size: 14px;
+}
+
+.admin-checkbox input {
+    width: 18px;
+    height: 18px;
+}
+
+.admin-btn {
+    background: #ff9800;
+    color: #050505;
+    border: none;
+    padding: 16px;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin-top: 10px;
+}
+
+.admin-btn:hover {
+    background: #e68900;
+    transform: translateY(-2px);
+}
+
+.admin-preview {
+    width: 100%;
+    height: 240px;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid #1f1f1f;
+    background: #111;
+}
+
+.admin-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* MOBILE */
+@media (max-width: 640px) {
+
+    .admin-form-box {
+        padding: 24px;
+    }
+
+    .admin-form-box h1 {
+        font-size: 28px;
+    }
+
+}

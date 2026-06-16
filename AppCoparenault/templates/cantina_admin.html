@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Cantina</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/cantina_admin.css') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+</head>
+<body>
+
+<div class="cantina-admin">
+
+    <!-- HEADER -->
+    <div class="admin-header">
+
+        <div>
+            <h1>🍔 Panel Cantina</h1>
+            <p>Administrá productos, stock y pedidos</p>
+        </div>
+
+        <a href="/cantina_admin/crear_producto"
+        class="admin-btn">
+            ➕ Crear Producto
+        </a>
+
+    </div>
+
+    <!-- PRODUCTOS -->
+    <div class="admin-grid">
+
+        {% for producto in productos %}
+
+        <div class="admin-card">
+
+            <!-- IMAGEN -->
+            <div class="admin-card-img">
+
+                {% if producto.imagen %}
+
+                <img src="{{ url_for('static',
+                filename='uploads/' + producto.imagen) }}">
+
+                {% else %}
+
+                <div class="admin-no-img">
+                    🍟
+                </div>
+
+                {% endif %}
+
+            </div>
+
+            <!-- INFO -->
+            <div class="admin-card-body">
+
+                <h3>{{ producto.nombre }}</h3>
+
+                <p class="admin-desc">
+                    {{ producto.descripcion }}
+                </p>
+
+                <div class="admin-meta">
+
+                    <div class="admin-precio">
+                        ${{ producto.precio }}
+                    </div>
+
+                    <div class="admin-stock">
+                        Stock: {{ producto.stock }}
+                    </div>
+
+                </div>
+
+                {% if producto.activo %}
+
+                    <span class="estado-activo">
+                        Activo
+                    </span>
+
+                {% else %}
+
+                    <span class="estado-inactivo">
+                        Inactivo
+                    </span>
+
+                {% endif %}
+
+                <!-- BOTONES -->
+                <div class="admin-actions">
+
+                    <a href="/cantina_admin/editar_producto/{{ producto.id }}"
+                    class="btn-editar">
+                        ✏️ Editar
+                    </a>
+
+                    <a href="/cantina_admin/eliminar_producto/{{ producto.id }}"
+                    class="btn-eliminar">
+                        🗑️ Eliminar
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,332 @@
+/* =====================
+   FIXTURE PAGE
+   ===================== */
+
+body {
+    background-color: #050505;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+}
+
+/* =====================
+   TITULO
+   ===================== */
+.fixture-title {
+    text-align: center;
+    color: #ff9800;
+    font-size: clamp(36px, 6vw, 56px);
+    font-weight: 700;
+    letter-spacing: 6px;
+    margin: 48px 0 12px;
+    text-transform: uppercase;
+}
+
+.fixture-subtitle {
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+
+/* =====================
+   BUSCADOR
+   ===================== */
+.fixture-search {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 48px;
+    padding: 0 20px;
+}
+
+.fixture-search input {
+    width: 300px;
+    max-width: 100%;
+    padding: 13px 20px;
+    border-radius: 50px;
+    border: 1px solid #2a2a2a;
+    background-color: #0f0f0f;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.25s ease;
+}
+
+.fixture-search input::placeholder {
+    color: #555;
+}
+
+.fixture-search input:focus {
+    border-color: rgba(255, 152, 0, 0.5);
+}
+
+.fixture-search button {
+    background-color: #ff9800;
+    border: none;
+    padding: 13px 28px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #050505;
+    transition: all 0.25s ease;
+    letter-spacing: 0.3px;
+}
+
+.fixture-search button:hover {
+    background-color: #e68900;
+    transform: translateY(-1px);
+}
+
+/* =====================
+   FILTROS DEPORTE
+   ===================== */
+.fixture-filtros {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    padding: 0 20px;
+}
+
+.filtro-btn {
+    background: transparent;
+    color: #666;
+    border: 1px solid #2a2a2a;
+    padding: 8px 22px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    transition: all 0.25s ease;
+}
+
+.filtro-btn:hover,
+.filtro-btn.activo {
+    border-color: #ff9800;
+    color: #ff9800;
+    background-color: rgba(255, 152, 0, 0.06);
+}
+
+/* =====================
+   CONTENEDOR
+   ===================== */
+.fixture-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    padding: 0 40px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* =====================
+   CARD PARTIDO
+   ===================== */
+.fixture-card {
+    background: #0f0f0f;
+    border: 1px solid #1e1e1e;
+    border-radius: 20px;
+    padding: 28px 24px;
+    text-align: center;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.fixture-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ff9800, transparent);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.fixture-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 152, 0, 0.25);
+    background: #111;
+}
+
+.fixture-card:hover::before {
+    opacity: 1;
+}
+
+/* BADGE DEPORTE */
+.fixture-card h2 {
+    display: inline-block;
+    background-color: rgba(255, 152, 0, 0.1);
+    color: #ff9800;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 152, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+/* EQUIPOS */
+.fixture-teams {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.fixture-teams span {
+    color: #444;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+/* SCORE */
+.fixture-score {
+    color: #ff9800;
+    font-size: 42px;
+    font-weight: 700;
+    margin: 14px 0;
+    letter-spacing: 4px;
+    font-variant-numeric: tabular-nums;
+}
+
+/* SEPARADOR */
+.fixture-card hr {
+    border: none;
+    border-top: 1px solid #1e1e1e;
+    margin: 14px 0;
+}
+
+/* FECHA */
+.fixture-date {
+    color: #555;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+}
+
+/* BOTON EDITAR */
+.fixture-edit {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 18px;
+    padding: 9px 22px;
+    background-color: transparent;
+    border: 1px solid rgba(255, 152, 0, 0.4);
+    color: #ff9800;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.fixture-edit:hover {
+    background-color: #ff9800;
+    border-color: #ff9800;
+    color: #050505;
+}
+
+/* =====================
+   FORMULARIO CREAR/EDITAR
+   ===================== */
+.form-container {
+    max-width: 520px;
+    margin: 60px auto;
+    padding: 0 24px 80px;
+}
+
+.form-container h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ff9800;
+    margin-bottom: 36px;
+    letter-spacing: 1px;
+}
+
+.form-container label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 8px;
+    margin-top: 20px;
+}
+
+.form-container input,
+.form-container select {
+    width: 100%;
+    padding: 13px 16px;
+    border-radius: 10px;
+    border: 1px solid #1e1e1e;
+    background-color: #0f0f0f;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.25s ease;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.form-container input:focus,
+.form-container select:focus {
+    border-color: rgba(255, 152, 0, 0.5);
+}
+
+.form-container select option {
+    background-color: #0f0f0f;
+}
+
+.form-container button[type="submit"] {
+    width: 100%;
+    margin-top: 32px;
+    padding: 15px;
+    background-color: #ff9800;
+    color: #050505;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    letter-spacing: 0.5px;
+}
+
+.form-container button[type="submit"]:hover {
+    background-color: #e68900;
+    transform: translateY(-1px);
+}
+
+/* =====================
+   RESPONSIVE
+   ===================== */
+@media (max-width: 600px) {
+    .fixture-container {
+        padding: 0 16px 60px;
+        grid-template-columns: 1fr;
+    }
+
+    .fixture-search input {
+        width: 200px;
+    }
+}

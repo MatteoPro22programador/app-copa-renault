@@ -1,0 +1,304 @@
+/* =========================
+   PANEL ADMIN CANTINA
+   ========================= */
+/* RESET */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#050505;
+    color:white;
+    font-family:'Poppins',sans-serif;
+}
+.cantina-admin {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* HEADER */
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.admin-header h1 {
+    font-size: 38px;
+    color: white;
+    font-weight: 700;
+}
+
+.admin-header p {
+    color: #777;
+    font-size: 14px;
+}
+
+/* BOTONES */
+
+.admin-btn {
+    background: #ff9800;
+    color: #050505;
+    padding: 12px 22px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.admin-btn:hover {
+    background: #e68900;
+    transform: translateY(-2px);
+}
+
+/* GRID */
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 22px;
+}
+
+/* CARD PRODUCTO */
+
+.admin-card {
+    background: #0f0f0f;
+    border: 1px solid #1f1f1f;
+    border-radius: 22px;
+    overflow: hidden;
+    transition: 0.25s;
+}
+
+.admin-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,152,0,0.25);
+}
+
+/* IMAGEN */
+
+.admin-card-img {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background: #111;
+}
+
+.admin-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.admin-no-img {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    font-size: 60px;
+}
+
+/* INFO */
+
+.admin-card-body {
+    padding: 18px;
+}
+
+.admin-card-body h3 {
+    color: white;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.admin-desc {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 18px;
+}
+
+.admin-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.admin-precio {
+    color: #ff9800;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.admin-stock {
+    background: rgba(255,255,255,0.05);
+    padding: 6px 12px;
+    border-radius: 50px;
+    color: #aaa;
+    font-size: 13px;
+}
+
+/* ESTADOS */
+
+.estado-activo {
+    background: rgba(0,255,120,0.1);
+    color: #00d26a;
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.estado-inactivo {
+    background: rgba(255,50,50,0.1);
+    color: #ff4d4d;
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ACCIONES */
+
+.admin-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.btn-editar,
+.btn-eliminar {
+    flex: 1;
+    padding: 11px;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-editar {
+    background: rgba(255,152,0,0.1);
+    color: #ff9800;
+    border: 1px solid rgba(255,152,0,0.2);
+}
+
+.btn-editar:hover {
+    background: rgba(255,152,0,0.2);
+}
+
+.btn-eliminar {
+    background: rgba(255,50,50,0.08);
+    color: #ff4d4d;
+    border: 1px solid rgba(255,50,50,0.15);
+}
+
+.btn-eliminar:hover {
+    background: rgba(255,50,50,0.15);
+}
+
+/* TABLA PEDIDOS */
+
+.pedidos-box {
+    margin-top: 50px;
+    background: #0f0f0f;
+    border: 1px solid #1f1f1f;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.pedidos-header {
+    padding: 20px;
+    border-bottom: 1px solid #1f1f1f;
+}
+
+.pedidos-header h2 {
+    color: white;
+    font-size: 24px;
+}
+
+.pedidos-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pedidos-table th {
+    background: #111;
+    color: #888;
+    padding: 14px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.pedidos-table td {
+    padding: 16px 14px;
+    border-top: 1px solid #1a1a1a;
+    color: #ddd;
+    font-size: 14px;
+}
+
+.pedidos-table tr:hover {
+    background: rgba(255,255,255,0.02);
+}
+
+/* BADGES PEDIDOS */
+
+.badge-pagado {
+    background: rgba(0,255,120,0.1);
+    color: #00d26a;
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-pendiente {
+    background: rgba(255,152,0,0.1);
+    color: #ff9800;
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-cancelado {
+    background: rgba(255,50,50,0.1);
+    color: #ff4d4d;
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+    .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .admin-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pedidos-table {
+        display: block;
+        overflow-x: auto;
+    }
+}

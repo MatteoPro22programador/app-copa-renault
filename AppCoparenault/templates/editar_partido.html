@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Editar Partido</title>
+
+</head>
+<body>
+
+    <h1>Editar Partido</h1>
+
+    <form method="POST">
+
+       <label>Deporte</label>
+
+<select name="deporte" required>
+
+    <option value="Futbol"
+    {% if partido.deporte == "Futbol" %}selected{% endif %}>
+        Futbol
+    </option>
+
+    <option value="Basquet"
+    {% if partido.deporte == "Basquet" %}selected{% endif %}>
+        Basquet
+    </option>
+
+    <option value="Volley"
+    {% if partido.deporte == "Volley" %}selected{% endif %}>
+        Volley
+    </option>
+
+    <option value="Handball"
+    {% if partido.deporte == "Handball" %}selected{% endif %}>
+        Handball
+    </option>
+
+</select>
+
+        <label>Equipo 1</label>
+
+        <input
+        type="text"
+        name="equipo1"
+        value="{{ partido.equipo1 }}"
+        required>
+
+        <br><br>
+
+        <label>Equipo 2</label>
+
+        <input
+        type="text"
+        name="equipo2"
+        value="{{ partido.equipo2 }}"
+        required>
+
+        <br><br>
+
+        <label>Puntos Equipo 1</label>
+
+        <input
+        type="number"
+        name="puntos1"
+        value="{{ partido.puntos1 }}">
+
+        <br><br>
+
+        <label>Puntos Equipo 2</label>
+
+        <input
+        type="number"
+        name="puntos2"
+        value="{{ partido.puntos2 }}">
+
+        <br><br>
+
+        <label>Fecha</label>
+
+        <input
+        type="datetime-local"
+        name="fecha"
+        value="{{ partido.fecha.strftime('%Y-%m-%dT%H:%M') }}"
+        required>
+
+        <br><br>
+
+        <button type="submit">
+            Guardar Cambios
+        </button>
+
+    </form>
+
+</body>
+</html>
+</body>
+</html>

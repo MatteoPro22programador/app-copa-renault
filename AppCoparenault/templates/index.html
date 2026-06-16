@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Copa Renault</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="navbar">
+        <img src="/static/assets/logocup.png" alt="logo Copa Renault">
+
+        
+
+        
+
+        <div class="menu-btn" onclick="abrirMenu()">
+            ⋮
+        </div>
+
+    </header>
+
+    <!-- MENU LATERAL -->
+
+<div class="sidebar" id="sidebar">
+
+    <div class="cerrar" onclick="cerrarMenu()">
+        ✕
+    </div>
+
+    <!-- USUARIO -->
+
+    <div class="perfil">
+
+        <div class="foto">
+            👤
+        </div>
+
+        {% if session.get("usuario") %}
+
+            <h3>{{ session["usuario"] }}</h3>
+
+        {% else %}
+
+            <h3>Invitado</h3>
+
+        {% endif %}
+
+    </div>
+
+    <!-- OPCIONES -->
+
+    <a href="/">Inicio</a>
+
+    <a href="/fixture">Fixture</a>
+
+    <a href="/cantina">Cantina</a>
+
+    <a href="/sponsors">Sponsors</a>
+
+    {% if session.get("usuario") %}
+
+        <a href="/logout">Cerrar sesión</a>
+
+    {% else %}
+
+        <a href="/login">Login</a>
+
+    {% endif %}
+
+    
+
+</div>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <h1>
+            <span class="orange">COPA</span><br>
+            RENAULT
+        </h1>
+
+        <p>
+           El torneo más esperado del año.
+            Competencia, pasión y adrenalina en un solo lugar.
+        </p>
+
+        <div class="botones">
+
+            <a href="/cantina">
+                <button >Cantina</button>
+            </a>
+            <a href="/fixture">
+                <button>Ver Fixture</button>
+            </a>
+           <a href="">
+                <button>Conocer más</button>
+           </a>
+         <a href="/sponsors">
+            <button>Sponsors</button>
+         </a>
+            
+
+        </div>
+
+        {% if session.get("usuario") %}
+
+
+
+{% endif %}
+
+{% if usuario_admin %}
+
+<a href="/admin">Admin</a>
+
+{% endif %}
+    </section>
+
+    <!-- SCRIPT -->
+
+    <script>
+
+        function abrirMenu(){
+            document.getElementById("sidebar").style.right = "0";
+        }
+
+        function cerrarMenu(){
+            document.getElementById("sidebar").style.right = "-260px";
+        }
+
+    </script>
+
+     <section class="cards">
+
+        <div class="card">
+            <h3>DISCIPLINAS</h3>
+            <img src="/static/assets/refresco.png" alt="">
+            <p>Fútbol, básquet y volley.</p>
+        </div>
+
+        <div class="card">
+            <h3>COLEGIOS</h3>
+            <img src="/static/assets/icono_escuela.svg" alt="icono_escuela">
+            <p>Más de 30 colegios participando.</p>
+        </div>
+
+        <div class="card">
+            <h3>FORMATO</h3>
+            <img src="/static/assets/icono_torneo.svg" alt="">
+            <p>Fase de grupos y final.</p>
+        </div>
+
+    </section>
+
+</body>
+</html>

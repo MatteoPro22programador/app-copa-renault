@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Producto</title>
+</head>
+<body>
+
+<h1>Editar Producto</h1>
+
+<form method="POST" enctype="multipart/form-data">
+
+    <input type="text"
+    name="nombre"
+    placeholder="Nombre del producto"
+    required>
+
+    <textarea
+    name="descripcion"
+    placeholder="Descripción"></textarea>
+
+    <input type="number"
+    step="0.01"
+    name="precio"
+    placeholder="Precio"
+    required>
+
+    <input type="number"
+    name="stock"
+    placeholder="Stock"
+    required>
+
+    <label>Sección:</label>
+
+    <select name="seccion_id" required>
+
+        {% for seccion in secciones %}
+
+            <option value="{{ seccion.id }}">
+                {{ seccion.nombre }}
+            </option>
+
+        {% endfor %}
+
+    </select>
+
+    <label>Imagen:</label>
+
+    <input type="file"
+    name="imagen">
+
+    <label>
+
+        <input type="checkbox"
+        name="activo"
+        checked>
+
+        Producto activo
+
+    </label>
+
+    <button type="submit">
+        Crear producto
+    </button>
+
+</form>
+
+</body>
+</html>

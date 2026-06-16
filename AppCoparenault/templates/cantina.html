@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cantina – Copa Renault</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cantina.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <img src="{{ url_for('static', filename='img/logocup.png') }}" alt="Logo Copa Renault">
+    <h2>Copa Renault</h2>
+    <div class="navbar-right">
+        <button class="carrito-btn" onclick="abrirCarrito()">
+            🛒 <span class="carrito-count" id="carrito-count">0</span>
+        </button>
+        <div class="menu-btn" onclick="abrirMenu()">⋮</div>
+    </div>
+</header>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <div class="cerrar" onclick="cerrarMenu()">✕</div>
+    <div class="perfil">
+        <div class="foto">👤</div>
+        {% if session.get("usuario") %}
+            <h3>{{ session["usuario"] }}</h3>
+        {% else %}
+            <h3>Invitado</h3>
+        {% endif %}
+    </div>
+    <a href="/">Inicio</a>
+    <a href="/fixture">Fixture</a>
+    <a href="/cantina">Cantina</a>
+    <a href="/sponsors">Sponsors</a>
+    {% if session.get("usuario") %}
+        <a href="/logout">Cerrar sesión</a>
+    {% else %}
+        <a href="/login">Login</a>
+    {% endif %}
+</div>
+
+<!-- HERO CANTINA -->
+<section class="cantina-hero">
+    <img src="/static/assets/cantina.png" alt="" class="icono-cantina">
+    <h1>Cantina</h1>
+    <p>Pedí antes y retirá sin esperar. Pagás online, nosotros preparamos.</p>
+</section>
+
+<!-- FILTROS POR SECCIÓN -->
+<div class="cantina-filtros">
+    <button class="filtro-btn activo" onclick="filtrar('todos', this)">Todos</button>
+    {% for seccion in secciones %}
+    <button class="filtro-btn" onclick="filtrar('{{ seccion.id }}', this)">
+        {{ seccion.icono }} {{ seccion.nombre }}
+    </button>
+    {% endfor %}
+</div>
+
+<!-- PRODUCTOS -->
+<div class="cantina-grid" id="productos-grid">
+    {% for seccion in secciones %}
+        {% set productos_seccion = productos | selectattr('seccion_id', 'equalto', seccion.id) | list %}
+        {% if productos_seccion %}
+        <div class="seccion-titulo" data-seccion="{{ seccion.id }}">
+            <span>{{ seccion.icono }}</span> {{ seccion.nombre }}
+        </div>
+        {% for prod in productos_seccion %}
+        <div class="producto-card" data-seccion="{{ seccion.id }}" data-id="{{ prod.id }}">
+
+            <!-- IMAGEN -->
+            <div class="producto-img">
+                {% if prod.imagen %}
+                    <img src="{{ url_for('static', filename='uploads/' + prod.imagen) }}" alt="{{ prod.nombre }}">
+                {% else %}
+                    <div class="producto-img-placeholder">{{ seccion.icono }}</div>
+                {% endif %}
+
+                <!-- BADGE STOCK -->
+                {% if prod.stock <= 0 %}
+                    <span class="badge-agotado">Agotado</span>
+                {% elif prod.stock <= 5 %}
+                    <span class="badge-poco">Últimos {{ prod.stock }}</span>
+                {% endif %}
+            </div>
+
+            <!-- INFO -->
+            <div class="producto-info">
+                <h3>{{ prod.nombre }}</h3>
+                {% if prod.descripcion %}
+                    <p class="prod-desc">{{ prod.descripcion }}</p>
+                {% endif %}
+                <div class="producto-footer">
+                    <span class="prod-precio">${{ "%.0f"|format(prod.precio) }}</span>
+                    {% if prod.stock > 0 %}
+                        <button class="btn-agregar" onclick="agregarAlCarrito({{ prod.id }}, '{{ prod.nombre }}', {{ prod.precio }})">
+                            + Agregar
+                        </button>
+                    {% else %}
+                        <button class="btn-agregar deshabilitado" disabled>Sin stock</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    {% endfor %}
+</div>
+
+<!-- CARRITO PANEL LATERAL -->
+<div class="carrito-overlay" id="carrito-overlay" onclick="cerrarCarrito()"></div>
+<div class="carrito-panel" id="carrito-panel">
+    <div class="carrito-header">
+        <h3>Tu pedido</h3>
+        <button onclick="cerrarCarrito()">✕</button>
+    </div>
+
+    <div class="carrito-items" id="carrito-items">
+        <p class="carrito-vacio">Todavía no agregaste nada 🍽️</p>
+    </div>
+
+    <div class="carrito-resumen" id="carrito-resumen" style="display:none">
+        <div class="carrito-total">
+            <span>Total</span>
+            <span id="carrito-total-monto">$0</span>
+        </div>
+
+        {% if session.get("usuario") %}
+            <button class="btn-pagar" onclick="irAlPago()">
+                Pagar con Mercado Pago 💳
+            </button>
+        {% else %}
+            <a href="/login" class="btn-pagar">
+                Iniciá sesión para pagar
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+<!-- MODAL CONFIRMAR PEDIDO -->
+<div class="modal-overlay" id="modal-overlay" style="display:none">
+    <div class="modal-box">
+        <h2>Confirmá tu pedido</h2>
+        <div id="modal-detalle"></div>
+        <p class="modal-total">Total: <strong id="modal-total-monto"></strong></p>
+        <p class="modal-info">Vas a ser redirigido a Mercado Pago para completar el pago.</p>
+        <div class="modal-botones">
+            <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+            <button class="btn-confirmar" onclick="confirmarPago()">Confirmar y pagar</button>
+        </div>
+    </div>
+</div>
+
+<!-- SCRIPT -->
+<script>
+    // =====================
+    // ESTADO DEL CARRITO
+    // =====================
+    let carrito = {};
+
+    function agregarAlCarrito(id, nombre, precio) {
+        if (carrito[id]) {
+            carrito[id].cantidad++;
+        } else {
+            carrito[id] = { nombre, precio, cantidad: 1 };
+        }
+        actualizarCarrito();
+        mostrarToast(`${nombre} agregado ✓`);
+    }
+
+    function quitarDelCarrito(id) {
+        if (carrito[id]) {
+            carrito[id].cantidad--;
+            if (carrito[id].cantidad <= 0) delete carrito[id];
+        }
+        actualizarCarrito();
+    }
+
+    function actualizarCarrito() {
+        const items = Object.entries(carrito);
+        const count = items.reduce((s, [, v]) => s + v.cantidad, 0);
+        const total = items.reduce((s, [, v]) => s + v.precio * v.cantidad, 0);
+
+        document.getElementById('carrito-count').textContent = count;
+
+        const container = document.getElementById('carrito-items');
+        const resumen = document.getElementById('carrito-resumen');
+
+        if (items.length === 0) {
+            container.innerHTML = '<p class="carrito-vacio">Todavía no agregaste nada 🍽️</p>';
+            resumen.style.display = 'none';
+            return;
+        }
+
+        resumen.style.display = 'block';
+        document.getElementById('carrito-total-monto').textContent = '$' + total.toFixed(0);
+
+        container.innerHTML = items.map(([id, item]) => `
+            <div class="carrito-item">
+                <div class="ci-info">
+                    <span class="ci-nombre">${item.nombre}</span>
+                    <span class="ci-precio">$${(item.precio * item.cantidad).toFixed(0)}</span>
+                </div>
+                <div class="ci-cantidad">
+                    <button onclick="quitarDelCarrito(${id})">−</button>
+                    <span>${item.cantidad}</span>
+                    <button onclick="agregarAlCarrito(${id}, '${item.nombre}', ${item.precio})">+</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // =====================
+    // CARRITO UI
+    // =====================
+    function abrirCarrito() {
+        document.getElementById('carrito-panel').classList.add('abierto');
+        document.getElementById('carrito-overlay').classList.add('activo');
+    }
+
+    function cerrarCarrito() {
+        document.getElementById('carrito-panel').classList.remove('abierto');
+        document.getElementById('carrito-overlay').classList.remove('activo');
+    }
+
+    // =====================
+    // PAGO
+    // =====================
+    function irAlPago() {
+        const items = Object.entries(carrito);
+        if (items.length === 0) return;
+
+        const total = items.reduce((s, [, v]) => s + v.precio * v.cantidad, 0);
+
+        document.getElementById('modal-detalle').innerHTML = items.map(([, item]) => `
+            <div class="modal-item">
+                <span>${item.cantidad}x ${item.nombre}</span>
+                <span>$${(item.precio * item.cantidad).toFixed(0)}</span>
+            </div>
+        `).join('');
+
+        document.getElementById('modal-total-monto').textContent = '$' + total.toFixed(0);
+        document.getElementById('modal-overlay').style.display = 'flex';
+        cerrarCarrito();
+    }
+
+    function confirmarPago() {
+        const items = Object.entries(carrito).map(([id, item]) => ({
+            id: parseInt(id),
+            cantidad: item.cantidad
+        }));
+
+        fetch('/cantina/crear_pago', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ items })
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.init_point) {
+                window.location.href = data.init_point;
+            } else {
+                alert('Error al crear el pago: ' + (data.error || 'desconocido'));
+            }
+        })
+        .catch(() => alert('Error de conexión'));
+    }
+
+    function cerrarModal() {
+        document.getElementById('modal-overlay').style.display = 'none';
+    }
+
+    // =====================
+    // FILTROS
+    // =====================
+    function filtrar(seccionId, btn) {
+        document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('activo'));
+        btn.classList.add('activo');
+
+        const cards = document.querySelectorAll('.producto-card');
+        const titulos = document.querySelectorAll('.seccion-titulo');
+
+        cards.forEach(c => {
+            c.style.display = (seccionId === 'todos' || c.dataset.seccion == seccionId) ? 'flex' : 'none';
+        });
+        titulos.forEach(t => {
+            t.style.display = (seccionId === 'todos' || t.dataset.seccion == seccionId) ? 'flex' : 'none';
+        });
+    }
+
+    // =====================
+    // TOAST
+    // =====================
+    function mostrarToast(msg) {
+        let t = document.getElementById('toast');
+        if (!t) {
+            t = document.createElement('div');
+            t.id = 'toast';
+            t.className = 'toast';
+            document.body.appendChild(t);
+        }
+        t.textContent = msg;
+        t.classList.add('visible');
+        setTimeout(() => t.classList.remove('visible'), 2000);
+    }
+
+    // =====================
+    // MENU SIDEBAR
+    // =====================
+    function abrirMenu() { document.getElementById('sidebar').style.right = '0'; }
+    function cerrarMenu() { document.getElementById('sidebar').style.right = '-280px'; }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Sponsors</title>
+
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+    <!-- CSS GENERAL -->
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- CSS SPONSORS -->
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/sponsors.css') }}">
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<header class="navbar">
+
+    <div class="navbar-left">
+
+        <img
+        src="{{ url_for('static', filename='img/logocup.png') }}"
+        alt="Logo Copa Renault">
+
+        <h2>Copa Renault</h2>
+
+    </div>
+
+    <div class="menu-btn" onclick="abrirMenu()">
+        ⋮
+    </div>
+
+</header>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+    <div class="cerrar" onclick="cerrarMenu()">
+        ✕
+    </div>
+
+    <!-- PERFIL -->
+
+    <div class="perfil">
+
+        <div class="foto">
+            👤
+        </div>
+
+        {% if session.get("usuario") %}
+
+            <h3>{{ session["usuario"] }}</h3>
+
+        {% else %}
+
+            <h3>Invitado</h3>
+
+        {% endif %}
+
+    </div>
+
+    <!-- LINKS -->
+
+    <div class="sidebar-links">
+
+        <a href="/">Inicio</a>
+
+        <a href="/fixture">Fixture</a>
+
+        <a href="/cantina">Cantina</a>
+
+        <a href="/sponsors" class="activo">
+            Sponsors
+        </a>
+
+        {% if session.get("usuario") %}
+
+            <a href="/logout">
+                Cerrar sesión
+            </a>
+
+        {% else %}
+
+            <a href="/login">
+                Login
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<!-- HERO -->
+
+<section class="sponsors-hero">
+
+    <h1>
+        Sponsors Oficiales
+    </h1>
+
+    <p>
+        Empresas que acompañan la Copa Renault
+        y hacen posible el torneo.
+    </p>
+
+</section>
+
+<!-- ORO -->
+
+<section class="categoria oro">
+
+    <h2>
+        🥇 Sponsors Oro
+    </h2>
+
+    <div class="sponsors-grid">
+
+        <div class="sponsor-card">
+
+            <img
+            src="{{ url_for('static', filename='img/ypf.png') }}"
+            alt="YPF">
+
+            <p>YPF</p>
+
+        </div>
+
+        <div class="sponsor-card">
+
+            <img
+            src="{{ url_for('static', filename='img/renault.png') }}"
+            alt="Renault">
+
+            <p>Renault</p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- PLATA -->
+
+<section class="categoria plata">
+
+    <h2>
+        🥈 Sponsors Plata
+    </h2>
+
+    <div class="sponsors-grid">
+
+        <div class="sponsor-card">
+
+            <img
+            src="{{ url_for('static', filename='img/coca.png') }}"
+            alt="Coca Cola">
+
+            <p>Coca Cola</p>
+
+        </div>
+
+        <div class="sponsor-card">
+
+            <img
+            src="{{ url_for('static', filename='img/mc.png') }}"
+            alt="McDonalds">
+
+            <p>McDonalds</p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- BRONCE -->
+
+<section class="categoria bronce">
+
+    <h2>
+        🥉 Sponsors Bronce
+    </h2>
+
+    <div class="sponsors-grid">
+
+        <div class="sponsor-card">
+
+            <img
+            src="{{ url_for('static', filename='img/puma.png') }}"
+            alt="Puma">
+
+            <p>Puma</p>
+
+        </div>
+
+        <div class="sponsor-card">
+
+            <img
+            src="{{ url_for('static', filename='img/adidas.png') }}"
+            alt="Adidas">
+
+            <p>Adidas</p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- SCRIPT MENU -->
+
+<script>
+
+function abrirMenu(){
+
+    document.getElementById("sidebar").style.right = "0";
+
+}
+
+function cerrarMenu(){
+
+    document.getElementById("sidebar").style.right = "-320px";
+
+}
+
+</script>
+
+</body>
+
+</html>

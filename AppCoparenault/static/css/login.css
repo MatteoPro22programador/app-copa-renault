@@ -1,0 +1,176 @@
+/* =====================
+   LOGIN PAGE
+   ===================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #050505;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Fondo decorativo */
+body::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255,152,0,0.05) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+/* =====================
+   CAJA LOGIN
+   ===================== */
+.login-box {
+    background-color: #0f0f0f;
+    padding: 48px 44px;
+    border-radius: 24px;
+    border: 1px solid #1e1e1e;
+    width: 380px;
+    max-width: calc(100vw - 32px);
+    position: relative;
+    z-index: 1;
+}
+
+.login-box h1 {
+    color: #ff9800;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+}
+
+.login-box .subtitulo {
+    text-align: center;
+    color: #555;
+    font-size: 13px;
+    margin-bottom: 36px;
+}
+
+/* =====================
+   LABEL
+   ===================== */
+.login-box label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 8px;
+    margin-top: 20px;
+}
+
+/* =====================
+   INPUTS
+   ===================== */
+.login-box input {
+    width: 100%;
+    padding: 13px 16px;
+    margin-bottom: 4px;
+    border-radius: 10px;
+    border: 1px solid #1e1e1e;
+    background-color: #0a0a0a;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.login-box input::placeholder {
+    color: #444;
+}
+
+.login-box input:focus {
+    border-color: rgba(255, 152, 0, 0.5);
+    background-color: #111;
+}
+
+/* =====================
+   BOTON
+   ===================== */
+.login-box button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background-color: #ff9800;
+    color: #050505;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin-top: 28px;
+    letter-spacing: 0.4px;
+}
+
+.login-box button:hover {
+    background-color: #e68900;
+    transform: translateY(-1px);
+}
+
+.login-box button:active {
+    transform: translateY(0);
+}
+
+/* =====================
+   LINK REGISTRO
+   ===================== */
+.login-box p {
+    text-align: center;
+    color: #555;
+    font-size: 13px;
+    margin-top: 24px;
+}
+
+.login-box p a {
+    color: #ff9800;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.login-box p a:hover {
+    color: #ffb347;
+    text-decoration: underline;
+}
+
+/* =====================
+   DIVISOR
+   ===================== */
+.login-box .divisor {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 24px 0;
+}
+
+.login-box .divisor hr {
+    flex: 1;
+    border: none;
+    border-top: 1px solid #1e1e1e;
+}
+
+.login-box .divisor span {
+    color: #444;
+    font-size: 12px;
+}

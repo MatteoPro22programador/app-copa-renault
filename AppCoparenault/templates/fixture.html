@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Fixture</title>
+
+    <!-- CSS GENERAL -->
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- CSS FIXTURE -->
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/fixture.css') }}">
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<header class="navbar">
+
+    <img
+    src="{{ url_for('static', filename='img/logocup.png') }}"
+    alt="logo Copa Renault">
+
+    <h2>Copa Renault</h2>
+
+    <div class="menu-btn" onclick="abrirMenu()">
+        ⋮
+    </div>
+
+</header>
+
+<!-- MENU LATERAL -->
+
+<div class="sidebar" id="sidebar">
+
+    <div class="cerrar" onclick="cerrarMenu()">
+        ✕
+    </div>
+
+    <!-- PERFIL -->
+
+    <div class="perfil">
+
+        <div class="foto">
+            👤
+        </div>
+
+        {% if session.get("usuario") %}
+
+            <h3>{{ session["usuario"] }}</h3>
+
+        {% else %}
+
+            <h3>Invitado</h3>
+
+        {% endif %}
+
+    </div>
+
+    <!-- OPCIONES -->
+
+    <a href="/">Inicio</a>
+
+    <a href="/fixture">Fixture</a>
+
+    <a href="/cantina">Cantina</a>
+
+    <a href="/sponsors">Sponsors</a>
+
+    {% if session.get("usuario") %}
+
+        <a href="/logout">Cerrar sesión</a>
+
+    {% else %}
+
+        <a href="/login">Login</a>
+
+    {% endif %}
+
+</div>
+
+<!-- TITULO -->
+
+<h1 class="fixture-title">
+    FIXTURE
+</h1>
+
+<!-- BUSCADOR -->
+
+<form class="fixture-search" method="GET">
+
+    <input
+    type="text"
+    name="buscar"
+    placeholder="Buscar colegio">
+
+    <button type="submit">
+        Buscar
+    </button>
+
+</form>
+
+<!-- PARTIDOS -->
+
+<div class="fixture-container">
+
+{% for partido in partidos %}
+
+<div class="fixture-card">
+
+    <h2>
+        {{ partido.deporte }}
+    </h2>
+
+    <div class="fixture-teams">
+
+        {{ partido.equipo1 }}
+
+        <span>vs</span>
+
+        {{ partido.equipo2 }}
+
+    </div>
+
+    <div class="fixture-score">
+
+        {{ partido.puntos1 }}
+        -
+        {{ partido.puntos2 }}
+
+    </div>
+
+    <div class="fixture-date">
+
+  
+
+    {{ partido.fecha }}
+
+
+    </div>
+
+    {% if admin %}
+
+    <a
+    class="fixture-edit"
+    href="/editar_partido/{{ partido.id }}">
+
+        Editar
+
+    </a>
+
+    {% endif %}
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<!-- SCRIPT MENU -->
+
+<script>
+
+function abrirMenu(){
+
+    document.getElementById("sidebar").style.right = "0";
+
+}
+
+function cerrarMenu(){
+
+    document.getElementById("sidebar").style.right = "-300px";
+
+}
+
+</script>
+
+</body>
+</html>
