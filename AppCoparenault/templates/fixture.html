@@ -23,7 +23,7 @@
 <header class="navbar">
 
     <img
-    src="{{ url_for('static', filename='img/logocup.png') }}"
+    src="{{ url_for('static', filename='assets/logocup.png') }}"
     alt="logo Copa Renault">
 
     <h2>Copa Renault</h2>
@@ -91,12 +91,16 @@
 </h1>
 
 <!-- BUSCADOR -->
+<!-- Se mantiene el deporte elegido como input hidden para que al buscar no se pierda el filtro -->
 
-<form class="fixture-search" method="GET">
+<form class="fixture-search" method="GET" action="/fixture">
+
+    <input type="hidden" name="deporte" value="{{ deporte_activo }}">
 
     <input
     type="text"
     name="buscar"
+    value="{{ buscar }}"
     placeholder="Buscar colegio">
 
     <button type="submit">
@@ -104,6 +108,33 @@
     </button>
 
 </form>
+
+<!-- FILTRO POR DEPORTE -->
+<!-- Cada link manda a /fixture conservando lo que haya en el buscador -->
+
+<div class="fixture-filtros">
+
+    <a href="/fixture?deporte=&buscar={{ buscar }}"
+       class="filtro-btn {% if deporte_activo == '' %}activo{% endif %}">
+        Todos
+    </a>
+
+    <a href="/fixture?deporte=Futbol&buscar={{ buscar }}"
+       class="filtro-btn {% if deporte_activo == 'Futbol' %}activo{% endif %}">
+        ⚽ Fútbol
+    </a>
+
+    <a href="/fixture?deporte=Voley&buscar={{ buscar }}"
+       class="filtro-btn {% if deporte_activo == 'Voley' %}activo{% endif %}">
+        🏐 Vóley
+    </a>
+
+    <a href="/fixture?deporte=Basquet&buscar={{ buscar }}"
+       class="filtro-btn {% if deporte_activo == 'Basquet' %}activo{% endif %}">
+        🏀 Básquet
+    </a>
+
+</div>
 
 <!-- PARTIDOS -->
 
@@ -157,6 +188,14 @@
     {% endif %}
 
 </div>
+
+{% else %}
+
+<!-- SIN RESULTADOS -->
+
+<p class="fixture-sin-resultados">
+    No se encontraron partidos con esos filtros.
+</p>
 
 {% endfor %}
 

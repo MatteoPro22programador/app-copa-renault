@@ -103,9 +103,7 @@
             <a href="/fixture">
                 <button>Ver Fixture</button>
             </a>
-           <a href="">
-                <button>Conocer más</button>
-           </a>
+          
          <a href="/sponsors">
             <button>Sponsors</button>
          </a>
@@ -142,25 +140,33 @@
 
      <section class="cards">
 
-        <div class="card">
-            <h3>DISCIPLINAS</h3>
-            <img src="/static/assets/refresco.png" alt="">
-            <p>Fútbol, básquet y volley.</p>
-        </div>
+    <div class="card">
+        <img src="{{ url_for('static', filename='assets/pelota.png') }}"
+             alt="Disciplinas"
+             class="card-icon">
 
-        <div class="card">
-            <h3>COLEGIOS</h3>
-            <img src="/static/assets/icono_escuela.svg" alt="icono_escuela">
-            <p>Más de 30 colegios participando.</p>
-        </div>
+        <h3>DISCIPLINAS</h3>
+        <p>Fútbol, básquet y volley.</p>
+    </div>
 
-        <div class="card">
-            <h3>FORMATO</h3>
-            <img src="/static/assets/icono_torneo.svg" alt="">
-            <p>Fase de grupos y final.</p>
-        </div>
+    <div class="card">
+        <img src="{{ url_for('static', filename='assets/escuelaL.png') }}"
+             alt="Colegios"
+             class="card-icon">
 
-    </section>
+        <h3>COLEGIOS</h3>
+        <p>Más de 30 colegios participando.</p>
+    </div>
 
+    <div class="card">
+        <img src="{{ url_for('static', filename='assets/faceG.png') }}"
+             alt="Formato"
+             class="card-icon">
+
+        <h3>FORMATO</h3>
+        <p>Fase de grupos y final.</p>
+    </div>
+
+</section>
 </body>
 </html>

@@ -1,69 +1,133 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
     <meta charset="UTF-8">
+
     <title>Editar Producto</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/admin_forms.css') }}">
+
 </head>
 <body>
 
-<h1>Editar Producto</h1>
+<div class="admin-page">
 
-<form method="POST" enctype="multipart/form-data">
+    <div class="admin-form-box">
 
-    <input type="text"
-    name="nombre"
-    placeholder="Nombre del producto"
-    required>
+        <h1>Editar Producto</h1>
 
-    <textarea
-    name="descripcion"
-    placeholder="Descripción"></textarea>
+        <form method="POST"
+        enctype="multipart/form-data"
+        class="admin-form">
 
-    <input type="number"
-    step="0.01"
-    name="precio"
-    placeholder="Precio"
-    required>
+            <div class="admin-group">
 
-    <input type="number"
-    name="stock"
-    placeholder="Stock"
-    required>
+                <label>Nombre</label>
 
-    <label>Sección:</label>
+                <input type="text"
+                name="nombre"
+                value="{{ prod.nombre }}"
+                required>
 
-    <select name="seccion_id" required>
+            </div>
 
-        {% for seccion in secciones %}
+            <div class="admin-group">
 
-            <option value="{{ seccion.id }}">
-                {{ seccion.nombre }}
-            </option>
+                <label>Descripción</label>
 
-        {% endfor %}
+                <textarea
+                name="descripcion">{{ prod.descripcion }}</textarea>
 
-    </select>
+            </div>
 
-    <label>Imagen:</label>
+            <div class="admin-group">
 
-    <input type="file"
-    name="imagen">
+                <label>Precio</label>
 
-    <label>
+                <input type="number"
+                step="0.01"
+                name="precio"
+                value="{{ prod.precio }}"
+                required>
 
-        <input type="checkbox"
-        name="activo"
-        checked>
+            </div>
 
-        Producto activo
+            <div class="admin-group">
 
-    </label>
+                <label>Stock</label>
 
-    <button type="submit">
-        Crear producto
-    </button>
+                <input type="number"
+                name="stock"
+                value="{{ prod.stock }}">
 
-</form>
+            </div>
+
+            <div class="admin-group">
+
+                <label>Sección</label>
+
+                <select name="seccion_id" required>
+
+                    {% for seccion in secciones %}
+
+                    <option value="{{ seccion.id }}"
+                    {% if seccion.id == prod.seccion_id %}selected{% endif %}>
+                        {{ seccion.nombre }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <!-- IMAGEN ACTUAL -->
+            {% if prod.imagen %}
+
+            <div class="admin-group">
+
+                <label>Imagen actual</label>
+
+                <img src="{{ url_for('static', filename='uploads/' + prod.imagen) }}"
+                style="width:120px;border-radius:10px;display:block;margin-bottom:10px;">
+
+            </div>
+
+            {% endif %}
+
+            <div class="admin-group">
+
+                <label>Cambiar imagen (opcional)</label>
+
+                <input type="file"
+                name="imagen">
+
+            </div>
+
+            <label class="admin-checkbox">
+
+                <input type="checkbox"
+                name="activo"
+                {% if prod.activo %}checked{% endif %}>
+
+                Producto activo
+
+            </label>
+
+            <button type="submit"
+            class="admin-btn">
+
+                Guardar cambios
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
 
 </body>
 </html>

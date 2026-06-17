@@ -23,7 +23,7 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = 'matteoagustincasals@gmail.com'
 app.config['MAIL_PASSWORD'] = 'xggrgqvjdthxvmoc'
 
-# MERCADO PAGO(implementar)
+# MERCADO PAGO (implementar)
 # Reemplazá esto con tu Access Token de https://www.mercadopago.com.ar/developers
 #app.config['MP_ACCESS_TOKEN'] = 'TU_ACCESS_TOKEN_DE_MP_ACA'
 
@@ -63,7 +63,7 @@ class Partido(db.Model):
 
 
 class SeccionCantina(db.Model):
-    
+
     id     = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
     icono  = db.Column(db.String(10), default='🍽️')
@@ -87,7 +87,7 @@ class Pedido(db.Model):
     """Un pedido completo de un usuario."""
     id           = db.Column(db.Integer, primary_key=True)
     usuario_id   = db.Column(db.Integer, db.ForeignKey('usuario.id'))
-    fecha        = db.Column(db.DateTime, default=datetime)
+    fecha        = db.Column(db.DateTime, default=datetime.utcnow)
     total        = db.Column(db.Float)
     estado       = db.Column(db.String(50), default='pendiente')
     # pendiente | pagado | cancelado
@@ -151,8 +151,35 @@ def inicio():
 
 @app.route('/fixture')
 def fixture():
-    partidos = Partido.query.all()
-    return render_template('fixture.html', partidos=partidos, admin=get_admin())
+
+    # Parámetros que vienen de la URL: ?buscar=...&deporte=...
+    buscar  = request.args.get('buscar', '').strip()
+    deporte = request.args.get('deporte', '').strip()
+
+    query = Partido.query
+
+    # FILTRO POR DEPORTE (Fútbol / Vóley / Básquet)
+    if deporte:
+        query = query.filter(Partido.deporte == deporte)
+
+    # BÚSQUEDA POR NOMBRE DE COLEGIO (equipo1 o equipo2)
+    if buscar:
+        query = query.filter(
+            db.or_(
+                Partido.equipo1.ilike(f'%{buscar}%'),
+                Partido.equipo2.ilike(f'%{buscar}%')
+            )
+        )
+
+    partidos = query.order_by(Partido.fecha).all()
+
+    return render_template(
+        'fixture.html',
+        partidos=partidos,
+        admin=get_admin(),
+        buscar=buscar,
+        deporte_activo=deporte
+    )
 
 @app.route('/crear_partido', methods=['GET', 'POST'])
 def crear_partido():
@@ -188,6 +215,18 @@ def editar_partido(id):
         return redirect('/fixture')
     return render_template('editar_partido.html', partido=partido)
 
+@app.route('/eliminar_partido/<int:id>')
+def eliminar_partido(id):
+
+    if not get_admin():
+        return redirect('/login')
+
+    partido = Partido.query.get_or_404(id)
+
+    db.session.delete(partido)
+    db.session.commit()
+
+    return redirect('/fixture')
 # -----------------------------
 # CANTINA PÚBLICA
 # -----------------------------
@@ -531,7 +570,7 @@ def marcar_entregado(id):
 
 # Tu pedido fue pagado. Mostrá este código en la cantina para retirarlo:
 
- 
+
 
 # Detalle:
 # {items_txt}
